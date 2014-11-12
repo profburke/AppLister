@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LSApplicationProxy.h"
 
 @interface AppInfo : NSObject
 
@@ -15,6 +16,6 @@
 @property (nonatomic, readonly) NSString *applicationIdentifier;
 @property (nonatomic, readonly) NSString *details;
 
-- (instancetype)initWithProxy:(id)appProxy;
+- (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;
 
 @end

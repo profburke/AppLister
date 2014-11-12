@@ -45,6 +45,9 @@
 		C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppLister-Bridging-Header.h"; sourceTree = "<group>"; };
 		C91D51311A13A93200C3CC26 /* AppList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppList.h; sourceTree = "<group>"; };
 		C91D51321A13A93200C3CC26 /* AppList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppList.m; sourceTree = "<group>"; };
+		C97939E41A13FD1600FFB38D /* LSApplicationProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSApplicationProxy.h; sourceTree = "<group>"; };
+		C97939E51A13FD1600FFB38D /* LSBundleProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBundleProxy.h; sourceTree = "<group>"; };
+		C97939E61A13FD1600FFB38D /* LSResourceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSResourceProxy.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,9 @@
 		C91D510B1A13A7A100C3CC26 /* AppLister */ = {
 			isa = PBXGroup;
 			children = (
+				C97939E41A13FD1600FFB38D /* LSApplicationProxy.h */,
+				C97939E51A13FD1600FFB38D /* LSBundleProxy.h */,
+				C97939E61A13FD1600FFB38D /* LSResourceProxy.h */,
 				C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */,
 				C91D510E1A13A7A100C3CC26 /* AppDelegate.swift */,
 				C91D51101A13A7A100C3CC26 /* MasterViewController.swift */,

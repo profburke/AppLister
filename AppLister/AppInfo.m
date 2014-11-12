@@ -9,7 +9,7 @@
 #import "AppInfo.h"
 
 @interface AppInfo ()
-@property (nonatomic, strong, readwrite) id appProxy;
+@property (nonatomic, strong, readwrite) LSApplicationProxy *appProxy;
 @end
 
 
@@ -25,7 +25,7 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 @implementation AppInfo
 
 
-- (instancetype)initWithProxy:(id)appProxy
+- (instancetype)initWithProxy:(LSApplicationProxy *)appProxy
 {
     self = [super init];
     if (self) {
@@ -37,13 +37,9 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 
 
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-
-
 - (NSString *)name
 {
-    return PROP(localizedName);
+    return self.appProxy.localizedName;
 }
 
 
@@ -51,7 +47,7 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 
 - (NSString *)version
 {
-    return PROP(shortVersionString);
+    return self.appProxy.shortVersionString;
 }
 
 
@@ -59,7 +55,7 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 
 - (NSString *)applicationIdentifier
 {
-    return PROP(applicationIdentifier);
+    return self.appProxy.applicationIdentifier;
 }
 
 
@@ -67,24 +63,24 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 
 - (NSString *)details
 {
-    return [NSString stringWithFormat:template,
-            self.applicationIdentifier,
-            self.version,
-            PROP(applicationDSID),
-            PROP(applicationType),
-            PROP(bundleVersion),
-            PROP(itemName),
-            PROP(minimumSystemVersion),
-            PROP(roleIdentifier),
-            PROP(sdkVersion),
-            PROP(shortVersionString),
-            PROP(storeCohortMetadata),
-            PROP(teamID),
-            PROP(vendorName)];
+    return @"duh!";
+//    return [NSString stringWithFormat:template,
+//            self.applicationIdentifier,
+//            self.version,
+//            PROP(applicationDSID),
+//            PROP(applicationType),
+//            PROP(bundleVersion),
+//            PROP(itemName),
+//            PROP(minimumSystemVersion),
+//            PROP(roleIdentifier),
+//            PROP(sdkVersion),
+//            PROP(shortVersionString),
+//            PROP(storeCohortMetadata),
+//            PROP(teamID),
+//            PROP(vendorName)];
 }
 
 
-#pragma clang diagnostic pop
 
 
 @end
