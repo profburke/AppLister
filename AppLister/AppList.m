@@ -67,7 +67,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 
 
-// MARK: UITableViewDataSource
+// MARK:  - UITableViewDataSource
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -92,7 +92,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
     
     AppInfo *app = [self.apps objectAtIndex:[indexPath row]];
     cell.textLabel.text = app.name;
-    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app.applicationIdentifier, app.version];
     
     return cell;
 }

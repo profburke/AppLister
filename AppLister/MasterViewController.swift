@@ -12,7 +12,7 @@ class MasterViewController: UITableViewController
 {
     var detailViewController: DetailViewController? = nil
     var appListDataSource: AppList = AppList()
-
+    let evenColor = UIColor(white: 0.9, alpha: 1.0)
 
     
     override func awakeFromNib()
@@ -39,6 +39,19 @@ class MasterViewController: UITableViewController
         }
     }
 
+    
+    
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let isEven = (indexPath.row%2 == 0)
+        
+        if isEven {
+            cell.backgroundColor = self.evenColor
+        } else {
+            cell.backgroundColor = UIColor.whiteColor()
+        }
+    }
     
     
     
