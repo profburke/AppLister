@@ -11,6 +11,9 @@
 @interface AppInfo : NSObject
 
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *version;
+@property (nonatomic, readonly) NSString *applicationIdentifier;
+@property (nonatomic, readonly) NSString *details;
 
 - (instancetype)initWithProxy:(id)appProxy;
 

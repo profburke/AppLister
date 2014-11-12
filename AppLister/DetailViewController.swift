@@ -10,7 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController
 {
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var detailDescriptionView: UITextView!
 
 
     var detailItem: AppInfo? {
@@ -25,8 +25,8 @@ class DetailViewController: UIViewController
     func configureView()
     {
         if let app: AppInfo = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = app.name
+            if let textview = self.detailDescriptionView {
+                textview.text = app.details
             }
         }
     }

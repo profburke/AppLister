@@ -13,6 +13,14 @@
 @end
 
 
+#define PROP(a) \
+    [self.appProxy performSelector:@selector(a)]
+
+
+static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@";
+
+
+
 
 @implementation AppInfo
 
@@ -29,18 +37,54 @@
 
 
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+
+
 - (NSString *)name
 {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wundeclared-selector"
-    
-    NSString *appIdentifier = [self.appProxy performSelector:@selector(applicationIdentifier)];
-
-    #pragma clang diagnostic pop
-    
-    
-    return [[appIdentifier componentsSeparatedByString:@"."] lastObject];
+    return PROP(localizedName);
 }
+
+
+
+
+- (NSString *)version
+{
+    return PROP(shortVersionString);
+}
+
+
+
+
+- (NSString *)applicationIdentifier
+{
+    return PROP(applicationIdentifier);
+}
+
+
+
+
+- (NSString *)details
+{
+    return [NSString stringWithFormat:template,
+            self.applicationIdentifier,
+            self.version,
+            PROP(applicationDSID),
+            PROP(applicationType),
+            PROP(bundleVersion),
+            PROP(itemName),
+            PROP(minimumSystemVersion),
+            PROP(roleIdentifier),
+            PROP(sdkVersion),
+            PROP(shortVersionString),
+            PROP(storeCohortMetadata),
+            PROP(teamID),
+            PROP(vendorName)];
+}
+
+
+#pragma clang diagnostic pop
 
 
 @end
