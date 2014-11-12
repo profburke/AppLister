@@ -8,16 +8,10 @@
 
 #import "AppInfo.h"
 
+
 @interface AppInfo ()
 @property (nonatomic, strong, readwrite) LSApplicationProxy *appProxy;
 @end
-
-
-#define PROP(a) \
-    [self.appProxy performSelector:@selector(a)]
-
-
-static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@";
 
 
 
@@ -61,23 +55,24 @@ static NSString *const template = @"%@\nVersion:\t%@\n%@\n%@\n%@\n%@\n%@\n%@\n%@
 
 
 
+// TODO: Improve the formatting of this information
 - (NSString *)details
 {
-    return @"duh!";
-//    return [NSString stringWithFormat:template,
-//            self.applicationIdentifier,
-//            self.version,
-//            PROP(applicationDSID),
-//            PROP(applicationType),
-//            PROP(bundleVersion),
-//            PROP(itemName),
-//            PROP(minimumSystemVersion),
-//            PROP(roleIdentifier),
-//            PROP(sdkVersion),
-//            PROP(shortVersionString),
-//            PROP(storeCohortMetadata),
-//            PROP(teamID),
-//            PROP(vendorName)];
+    NSArray *propertyNames = @[@"applicationIdentifier", @"applicationDSID",
+                               @"applicationType", @"bundleVersion", @"itemName", @"minimumSystemVersion",
+                               @"roleIdentifier", @"sdkVersion", @"shortVersionString", @"storeCohortMetadata",
+                               @"teamID", @"vendorName", @"dynamicDiskUsage", @"itemID", @"staticDiskUsage", @"storeFront",
+                               @"appStoreReceiptURL", @"bundleContainerURL", @"bundleExecutable", @"bundleIdentifier",
+                               @"bundleType", @"bundleURL", @"bundleVersion", @"containerURL", @"dataContainerURL",
+                               @"localizedShortName", @"signerIdentity",
+                               @"localizedName"
+                               ];
+
+    NSMutableArray *properties = [NSMutableArray array];
+    for (NSString *prop in propertyNames) {
+        [properties addObject:[NSString stringWithFormat:@"%@:\t%@", prop, [self.appProxy valueForKey:prop]]];
+    }
+    return [properties componentsJoinedByString:@"\n"];
 }
 
 
