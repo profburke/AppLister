@@ -31,7 +31,14 @@
 
 - (NSString *)name
 {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
+    
     NSString *appIdentifier = [self.appProxy performSelector:@selector(applicationIdentifier)];
+
+    #pragma clang diagnostic pop
+    
+    
     return [[appIdentifier componentsSeparatedByString:@"."] lastObject];
 }
 

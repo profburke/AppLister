@@ -34,9 +34,15 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
     self = [super init];
     if (self) {
         Class LSApplicationWorkspace_class = NSClassFromString(@"LSApplicationWorkspace");
+
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wundeclared-selector"
+
         NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
         NSArray *appProxies = [workspace performSelector:@selector(allApplications)];
         
+        #pragma clang diagnostic pop
+
         NSMutableArray *tempList = [NSMutableArray array];
         for (id app in appProxies) {
             [tempList addObject:[[AppInfo alloc] initWithProxy:app]];
