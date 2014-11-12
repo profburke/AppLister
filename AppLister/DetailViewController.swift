@@ -26,7 +26,6 @@ class DetailViewController: UIViewController
     {
         if let app: AppInfo = self.detailItem {
             if let label = self.detailDescriptionLabel {
-                self.title = app.name
                 label.text = app.name
             }
         }
