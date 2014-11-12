@@ -86,18 +86,18 @@
 		C91D510B1A13A7A100C3CC26 /* AppLister */ = {
 			isa = PBXGroup;
 			children = (
+				C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */,
 				C91D510E1A13A7A100C3CC26 /* AppDelegate.swift */,
 				C91D51101A13A7A100C3CC26 /* MasterViewController.swift */,
 				C91D51121A13A7A100C3CC26 /* DetailViewController.swift */,
-				C91D51141A13A7A100C3CC26 /* Main.storyboard */,
 				C910FE8E1A13BE7200B73609 /* AppInfo.h */,
 				C910FE8F1A13BE7200B73609 /* AppInfo.m */,
+				C91D51311A13A93200C3CC26 /* AppList.h */,
+				C91D51321A13A93200C3CC26 /* AppList.m */,
+				C91D51141A13A7A100C3CC26 /* Main.storyboard */,
 				C91D51171A13A7A100C3CC26 /* Images.xcassets */,
 				C91D51191A13A7A100C3CC26 /* LaunchScreen.xib */,
 				C91D510C1A13A7A100C3CC26 /* Supporting Files */,
-				C91D51311A13A93200C3CC26 /* AppList.h */,
-				C91D51321A13A93200C3CC26 /* AppList.m */,
-				C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */,
 			);
 			path = AppLister;
 			sourceTree = "<group>";
