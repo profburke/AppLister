@@ -17,7 +17,7 @@
 
 NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 {
-    return [app1.name caseInsensitiveCompare:app2.name];
+    return [app1[@"localizedName"] caseInsensitiveCompare:app2[@"localizedName"]];
 }
 
 
@@ -90,8 +90,8 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     AppInfo *app = [self.apps objectAtIndex:[indexPath row]];
-    cell.textLabel.text = app.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app.applicationIdentifier, app.version];
+    cell.textLabel.text = app[@"localizedName"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[@"applicationIdentifier"], app[@"shortVersionString"]];
     
     return cell;
 }

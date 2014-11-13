@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C90D546A1A14FE6500F9373F /* AppInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D54691A14FE6500F9373F /* AppInfoDataSource.swift */; };
 		C910FE901A13BE7200B73609 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C910FE8F1A13BE7200B73609 /* AppInfo.m */; };
 		C91D510F1A13A7A100C3CC26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91D510E1A13A7A100C3CC26 /* AppDelegate.swift */; };
 		C91D51111A13A7A100C3CC26 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91D51101A13A7A100C3CC26 /* MasterViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C90D54691A14FE6500F9373F /* AppInfoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoDataSource.swift; sourceTree = "<group>"; };
 		C910FE8E1A13BE7200B73609 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		C910FE8F1A13BE7200B73609 /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
 		C91D51091A13A7A100C3CC26 /* AppLister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppLister.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 				C91D51171A13A7A100C3CC26 /* Images.xcassets */,
 				C91D51191A13A7A100C3CC26 /* LaunchScreen.xib */,
 				C91D510C1A13A7A100C3CC26 /* Supporting Files */,
+				C90D54691A14FE6500F9373F /* AppInfoDataSource.swift */,
 			);
 			path = AppLister;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				C910FE901A13BE7200B73609 /* AppInfo.m in Sources */,
 				C91D51131A13A7A100C3CC26 /* DetailViewController.swift in Sources */,
+				C90D546A1A14FE6500F9373F /* AppInfoDataSource.swift in Sources */,
 				C91D51331A13A93200C3CC26 /* AppList.m in Sources */,
 				C91D51111A13A7A100C3CC26 /* MasterViewController.swift in Sources */,
 				C91D510F1A13A7A100C3CC26 /* AppDelegate.swift in Sources */,
