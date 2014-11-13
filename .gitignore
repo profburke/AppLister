@@ -1,0 +1,7 @@
+build/
+*.pbxuser
+*.perspectivev3
+*~
+.DS_Store
+xcuserdata
+*.xcuserstate
