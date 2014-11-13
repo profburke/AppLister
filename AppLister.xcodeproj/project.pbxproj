@@ -16,7 +16,7 @@
 		C91D51181A13A7A100C3CC26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C91D51171A13A7A100C3CC26 /* Images.xcassets */; };
 		C91D511B1A13A7A100C3CC26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91D51191A13A7A100C3CC26 /* LaunchScreen.xib */; };
 		C91D51271A13A7A200C3CC26 /* AppListerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91D51261A13A7A200C3CC26 /* AppListerTests.swift */; };
-		C91D51331A13A93200C3CC26 /* AppList.m in Sources */ = {isa = PBXBuildFile; fileRef = C91D51321A13A93200C3CC26 /* AppList.m */; };
+		C91D51331A13A93200C3CC26 /* AppListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C91D51321A13A93200C3CC26 /* AppListDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +45,8 @@
 		C91D51251A13A7A200C3CC26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C91D51261A13A7A200C3CC26 /* AppListerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppListerTests.swift; sourceTree = "<group>"; };
 		C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppLister-Bridging-Header.h"; sourceTree = "<group>"; };
-		C91D51311A13A93200C3CC26 /* AppList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppList.h; sourceTree = "<group>"; };
-		C91D51321A13A93200C3CC26 /* AppList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppList.m; sourceTree = "<group>"; };
+		C91D51311A13A93200C3CC26 /* AppListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppListDataSource.h; sourceTree = "<group>"; };
+		C91D51321A13A93200C3CC26 /* AppListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppListDataSource.m; sourceTree = "<group>"; };
 		C97939E41A13FD1600FFB38D /* LSApplicationProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSApplicationProxy.h; sourceTree = "<group>"; };
 		C97939E51A13FD1600FFB38D /* LSBundleProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBundleProxy.h; sourceTree = "<group>"; };
 		C97939E61A13FD1600FFB38D /* LSResourceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSResourceProxy.h; sourceTree = "<group>"; };
@@ -91,22 +91,20 @@
 		C91D510B1A13A7A100C3CC26 /* AppLister */ = {
 			isa = PBXGroup;
 			children = (
-				C97939E41A13FD1600FFB38D /* LSApplicationProxy.h */,
-				C97939E51A13FD1600FFB38D /* LSBundleProxy.h */,
-				C97939E61A13FD1600FFB38D /* LSResourceProxy.h */,
+				C9FF7FAC1A153CA700CE2D3C /* Private Headers */,
 				C91D51301A13A93200C3CC26 /* AppLister-Bridging-Header.h */,
 				C91D510E1A13A7A100C3CC26 /* AppDelegate.swift */,
 				C91D51101A13A7A100C3CC26 /* MasterViewController.swift */,
 				C91D51121A13A7A100C3CC26 /* DetailViewController.swift */,
+				C90D54691A14FE6500F9373F /* AppInfoDataSource.swift */,
 				C910FE8E1A13BE7200B73609 /* AppInfo.h */,
 				C910FE8F1A13BE7200B73609 /* AppInfo.m */,
-				C91D51311A13A93200C3CC26 /* AppList.h */,
-				C91D51321A13A93200C3CC26 /* AppList.m */,
+				C91D51311A13A93200C3CC26 /* AppListDataSource.h */,
+				C91D51321A13A93200C3CC26 /* AppListDataSource.m */,
 				C91D51141A13A7A100C3CC26 /* Main.storyboard */,
 				C91D51171A13A7A100C3CC26 /* Images.xcassets */,
 				C91D51191A13A7A100C3CC26 /* LaunchScreen.xib */,
 				C91D510C1A13A7A100C3CC26 /* Supporting Files */,
-				C90D54691A14FE6500F9373F /* AppInfoDataSource.swift */,
 			);
 			path = AppLister;
 			sourceTree = "<group>";
@@ -134,6 +132,16 @@
 				C91D51251A13A7A200C3CC26 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9FF7FAC1A153CA700CE2D3C /* Private Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C97939E51A13FD1600FFB38D /* LSBundleProxy.h */,
+				C97939E61A13FD1600FFB38D /* LSResourceProxy.h */,
+				C97939E41A13FD1600FFB38D /* LSApplicationProxy.h */,
+			);
+			name = "Private Headers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,7 +247,7 @@
 				C910FE901A13BE7200B73609 /* AppInfo.m in Sources */,
 				C91D51131A13A7A100C3CC26 /* DetailViewController.swift in Sources */,
 				C90D546A1A14FE6500F9373F /* AppInfoDataSource.swift in Sources */,
-				C91D51331A13A93200C3CC26 /* AppList.m in Sources */,
+				C91D51331A13A93200C3CC26 /* AppListDataSource.m in Sources */,
 				C91D51111A13A7A100C3CC26 /* MasterViewController.swift in Sources */,
 				C91D510F1A13A7A100C3CC26 /* AppDelegate.swift in Sources */,
 			);

@@ -11,7 +11,7 @@ import UIKit
 class MasterViewController: UITableViewController
 {
     var detailViewController: DetailViewController? = nil
-    var appListDataSource: AppList = AppList()
+    var appListDataSource: AppListDataSource = AppListDataSource()
     let evenColor = UIColor(white: 0.9, alpha: 1.0)
 
     
