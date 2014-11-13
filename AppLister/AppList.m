@@ -56,7 +56,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 
 
-// MARK: Custom Subscripting
+#pragma mark - Custom Subscripting
 
 
 - (id)objectAtIndexedSubscript:(NSInteger)idx
@@ -67,7 +67,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 
 
-// MARK:  - UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -100,7 +100,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 
 
-// MARK: Class Methods
+#pragma mark - Class Methods
 
 
 + (NSString *)cellIdentifier
