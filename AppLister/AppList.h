@@ -12,6 +12,4 @@
 
 - (id)objectAtIndexedSubscript:(NSInteger)idx;
 
-+ (NSString *)cellIdentifier;
-
 @end

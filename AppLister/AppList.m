@@ -15,14 +15,11 @@
 @end
 
 
-static NSString *const CellIdentifier = @"AppCell";
-
-
-
 NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 {
     return [app1.name caseInsensitiveCompare:app2.name];
 }
+
 
 
 
@@ -88,6 +85,8 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    static NSString *const CellIdentifier = @"AppCell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     AppInfo *app = [self.apps objectAtIndex:[indexPath row]];
@@ -97,16 +96,6 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
     return cell;
 }
 
-
-
-
-#pragma mark - Class Methods
-
-
-+ (NSString *)cellIdentifier
-{
-    return CellIdentifier;
-}
 
 
 @end
