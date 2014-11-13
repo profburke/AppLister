@@ -10,11 +10,13 @@ import UIKit
 
 class DetailViewController: UIViewController
 {
-    @IBOutlet weak var detailDescriptionView: UITextView!
+    @IBOutlet weak var tableview: UITableView!
+    var appinfoDataSource: AppInfoDataSource?
 
-
+    
     var detailItem: AppInfo? {
         didSet {
+            self.appinfoDataSource = AppInfoDataSource(appProxy: detailItem!)
             self.configureView()
         }
     }
@@ -24,10 +26,8 @@ class DetailViewController: UIViewController
     
     func configureView()
     {
-        if let app: AppInfo = self.detailItem {
-            if let textview = self.detailDescriptionView {
-                textview.text = app.details
-            }
+        if let dataSource: AppInfoDataSource = self.appinfoDataSource {
+            self.tableview?.dataSource = dataSource
         }
     }
 
@@ -40,6 +40,7 @@ class DetailViewController: UIViewController
         self.configureView()
     }
 
-
+    
+    
 }
 
