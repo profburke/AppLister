@@ -185,6 +185,7 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
     cell.textLabel.text = app[@"localizedName"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[@"applicationIdentifier"], app[@"shortVersionString"]];
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
