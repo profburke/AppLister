@@ -64,6 +64,8 @@ class MasterViewController: UITableViewController
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)
             self.tableView.tableHeaderView = controller.searchBar
+            self.definesPresentationContext = true
+            
             return controller
         })()
     }
