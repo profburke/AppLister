@@ -13,6 +13,7 @@ class MasterViewController: UITableViewController
     var detailViewController: DetailViewController? = nil
     var appListDataSource: AppListDataSource = AppListDataSource()
     let evenColor = UIColor(white: 0.9, alpha: 1.0)
+    var searchController = UISearchController()
 
     
     override func awakeFromNib()
@@ -33,6 +34,8 @@ class MasterViewController: UITableViewController
 
         self.tableView.dataSource = self.appListDataSource
         
+        configureSearchController()
+        
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
@@ -40,9 +43,36 @@ class MasterViewController: UITableViewController
     }
     
     
+
+
+    // MARK: - SearchController
+    
+    
+    func configureSearchController()
+    {
+        self.searchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            
+            controller.searchBar.scopeButtonTitles = ["All", "System", "User"]
+            controller.searchBar.showsBookmarkButton = true
+            controller.searchBar.delegate = self.appListDataSource
+            
+            controller.searchResultsUpdater = self.appListDataSource
+            controller.delegate = self.appListDataSource
+            self.appListDataSource.tableView = self.tableView
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)
+            self.tableView.tableHeaderView = controller.searchBar
+            return controller
+        })()
+    }
+    
+    
     
     
     // MARK: - UITableViewDelegate
+    
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let isEven = (indexPath.row%2 == 0)

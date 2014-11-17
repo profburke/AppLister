@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppListDataSource : NSObject <UITableViewDataSource>
 
+
+NS_ENUM(NSInteger, SearchScope) {
+    SearchScopeAll = 0,
+    SearchScopeSystem,
+    SearchScopeUser
+};
+
+
+
+@interface AppListDataSource : NSObject <UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate>
+
+@property (nonatomic, weak) UITableView *tableView;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;
 
 @end

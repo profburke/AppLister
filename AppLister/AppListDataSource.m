@@ -12,12 +12,37 @@
 
 @interface AppListDataSource ()
 @property (nonatomic, strong) NSArray *apps;
+@property (nonatomic, strong) NSArray *filteredApps;
+@property (nonatomic) BOOL searchActive;
+@property (nonatomic, strong) NSString *searchText;
+@property (nonatomic) enum SearchScope selectedScope;
 @end
+
 
 
 NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 {
     return [app1[@"localizedName"] caseInsensitiveCompare:app2[@"localizedName"]];
+}
+
+
+
+
+
+NSString *searchScopeEnumToText(enum SearchScope selectedScope)
+{
+    switch (selectedScope) {
+        case SearchScopeSystem:
+            return @"TYPE=System";
+            break;
+        case SearchScopeUser:
+            return @"TYPE=User";
+            break;
+        default:
+            return @" ";
+            break;
+    }
+
 }
 
 
@@ -46,8 +71,75 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
         }
         
         self.apps = [tempList sortedArrayUsingFunction:nameSort context:NULL];
+        
+        self.searchActive = NO;
     }
     return self;
+}
+
+
+
+
+#pragma mark - Search Helpers
+
+
+- (NSArray *)currentList
+{
+    NSArray *_currentList = self.apps;
+    if (self.searchActive) {
+        _currentList = self.filteredApps;
+    }
+    return _currentList;
+}
+
+
+
+
+- (void)updateFilteredApps
+{
+    self.searchActive = YES;
+    
+    NSString *scopeText = searchScopeEnumToText(self.selectedScope);
+
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(filterdata CONTAINS[cd] %@) AND (filterdata CONTAINS %@)",
+                         self.searchText,
+                         scopeText];
+    self.filteredApps = [self.apps filteredArrayUsingPredicate:pred];
+    [self.tableView reloadData];
+}
+
+
+
+
+#pragma mark - UISearchControllerDelegate
+
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    NSLog(@"%ld", (long)selectedScope);
+    self.selectedScope = selectedScope;
+    [self updateFilteredApps];
+}
+
+
+
+
+- (void)didDismissSearchController:(UISearchController *)searchController
+{
+    self.searchActive = NO;
+    [self.tableView reloadData];
+}
+
+
+
+
+#pragma mark - UISearchResultsUpdating
+
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    self.searchText = searchController.searchBar.text;
+    [self updateFilteredApps];
 }
 
 
@@ -58,7 +150,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 - (id)objectAtIndexedSubscript:(NSInteger)idx
 {
-    return [self.apps objectAtIndex:idx];
+    return [[self currentList] objectAtIndex:idx];
 }
 
 
@@ -77,7 +169,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.apps.count;
+    return [self currentList].count;
 }
 
 
@@ -89,7 +181,7 @@ NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    AppInfo *app = [self.apps objectAtIndex:[indexPath row]];
+    AppInfo *app = [[self currentList] objectAtIndex:[indexPath row]];
     cell.textLabel.text = app[@"localizedName"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[@"applicationIdentifier"], app[@"shortVersionString"]];
     
