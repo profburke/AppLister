@@ -40,6 +40,18 @@ static NSArray *propertyNames;
 
 
 
+- (NSString *)filterdata
+{
+    NSString *_filterData = [NSString stringWithFormat:@"%@ %@ %@",
+            [self objectForKeyedSubscript:@"localizedName"],
+            [self objectForKeyedSubscript:@"applicationIdentifier"],
+            [NSString stringWithFormat:@"TYPE=%@", [self objectForKeyedSubscript:@"applicationType"]]];
+    return _filterData;
+}
+
+
+
+
 #pragma mark - Custom Subscripting
 
 
