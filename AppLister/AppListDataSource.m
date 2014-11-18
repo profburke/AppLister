@@ -11,18 +11,17 @@
 
 
 @interface AppListDataSource ()
-@property (nonatomic, strong) NSArray *inScopeApps;
 @property (nonatomic, strong) NSDictionary *appsByCategory;
+@property (nonatomic, strong) NSArray *inScopeApps;
 @property (nonatomic, strong) NSArray *filteredApps;
-@property (nonatomic) BOOL searchActive;
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) enum SearchScope selectedScope;
+@property (nonatomic) BOOL searchActive;
 @end
 
 
 
 
-static NSString *const CELL_IDENTIFIER = @"AppCell";
 static NSString *const ALLAPPS_KEY = @"allapps";
 static NSString *const SYSTEMAPPS_KEY = @"System";
 static NSString *const USERAPPS_KEY = @"User";
@@ -101,7 +100,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
                                 USERAPPS_KEY : userApps_
                                 };
         
-        self.inScopeApps = allList;
+        self.inScopeApps = self.appsByCategory[ALLAPPS_KEY];
         self.searchActive = NO;
     }
     return self;
@@ -205,6 +204,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    static NSString *const CELL_IDENTIFIER = @"AppCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
     AppInfo *app = [self currentList][indexPath.row];
