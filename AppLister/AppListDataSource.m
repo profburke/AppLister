@@ -60,45 +60,58 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
 @implementation AppListDataSource
 
 
+- (NSArray *)fetchApps
+{
+    NSMutableArray *apps;
+    Class LSApplicationWorkspace_class = NSClassFromString(@"LSApplicationWorkspace");
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
+    apps = [workspace performSelector:@selector(allApplications)];
+    
+#pragma clang diagnostic pop
+    
+    return apps;
+}
+
+
+
+
+- (void)buildAppDictionary:(NSArray *)apps
+{
+    NSMutableDictionary *tempDictionary = [NSMutableDictionary dictionary];
+    tempDictionary[ALLAPPS_KEY] = [NSMutableArray array];
+    tempDictionary[SYSTEMAPPS_KEY] = [NSMutableArray array];
+    tempDictionary[USERAPPS_KEY] = [NSMutableArray array];
+    
+    for (id app in apps) {
+        AppInfo *appProxy = [[AppInfo alloc] initWithProxy:app];
+        // TODO: what if category is not "User" or "System"?
+        NSMutableArray *categoryList = tempDictionary[appProxy.type];
+        [tempDictionary[ALLAPPS_KEY] addObject:appProxy];
+        [categoryList addObject:appProxy];
+    }
+    
+    self.appsByCategory = @{
+                            ALLAPPS_KEY : [tempDictionary[ALLAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL],
+                            SYSTEMAPPS_KEY : [tempDictionary[SYSTEMAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL],
+                            USERAPPS_KEY : [tempDictionary[USERAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL]
+                            };
+    
+}
+
+
+
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        Class LSApplicationWorkspace_class = NSClassFromString(@"LSApplicationWorkspace");
-
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Wundeclared-selector"
-
-        NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
-        NSArray *appProxies = [workspace performSelector:@selector(allApplications)];
+        NSArray *apps = [self fetchApps];
         
-        #pragma clang diagnostic pop
-
-        NSMutableDictionary *tempDictionary = [NSMutableDictionary dictionary];
-        tempDictionary[ALLAPPS_KEY] = [NSMutableArray array];
-        tempDictionary[SYSTEMAPPS_KEY] = [NSMutableArray array];
-        tempDictionary[USERAPPS_KEY] = [NSMutableArray array];
-        
-        
-        NSMutableArray *allList = tempDictionary[ALLAPPS_KEY];
-        for (id app in appProxies) {
-            AppInfo *appProxy = [[AppInfo alloc] initWithProxy:app];
-            // TODO: what if category is not "User" or "System"?
-            NSString *category = appProxy.type;
-            NSMutableArray *categoryList = tempDictionary[category];
-            [allList addObject:appProxy];
-            [categoryList addObject:appProxy];
-        }
-        
-        NSArray *allApps_ = [allList sortedArrayUsingFunction:nameSort context:NULL];
-        NSArray *systemApps_ = [tempDictionary[SYSTEMAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL];
-        NSArray *userApps_ = [tempDictionary[USERAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL];
-
-        self.appsByCategory = @{
-                                ALLAPPS_KEY : allApps_,
-                                SYSTEMAPPS_KEY : systemApps_,
-                                USERAPPS_KEY : userApps_
-                                };
+        [self buildAppDictionary: apps];
         
         self.inScopeApps = self.appsByCategory[ALLAPPS_KEY];
         self.searchActive = NO;
