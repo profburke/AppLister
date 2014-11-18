@@ -18,6 +18,7 @@ static NSArray *propertyNames;
 static NSString *const NAME_KEY = @"localizedName";
 static NSString *const APPID_KEY = @"applicationIdentifier";
 static NSString *const TYPE_KEY = @"applicationType";
+static NSString *const VERSION_KEY = @"shortVersionString";
 
 
 @implementation AppInfo
@@ -49,6 +50,30 @@ static NSString *const TYPE_KEY = @"applicationType";
                              [self objectForKeyedSubscript:NAME_KEY],
                              [self objectForKeyedSubscript:APPID_KEY]];
     return _filterData;
+}
+
+
+
+
+- (NSString *)name
+{
+    return self[NAME_KEY];
+}
+
+
+
+
+- (NSString *)type
+{
+    return self[TYPE_KEY];
+}
+
+
+
+
+- (NSString *)version
+{
+    return self[VERSION_KEY];
 }
 
 

@@ -14,6 +14,10 @@
 @interface AppInfo : NSObject
 
 @property (nonatomic, readonly) NSString *filterdata; // so we can build predicates for filtering
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *type;
+@property (nonatomic, readonly) NSString *version;
+
 
 
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;

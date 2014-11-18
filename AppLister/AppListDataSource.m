@@ -26,16 +26,13 @@ static NSString *const CELL_IDENTIFIER = @"AppCell";
 static NSString *const ALLAPPS_KEY = @"allapps";
 static NSString *const SYSTEMAPPS_KEY = @"System";
 static NSString *const USERAPPS_KEY = @"User";
-static NSString *const NAME_KEY = @"localizedName"; // TODO: avoid duplication from AppInfo
-static NSString *const TYPE_KEY = @"applicationType"; // AS ABOVE
-static NSString *const VERSION_KEY = @"shortVersionString"; // AS ABOVE
 
 
 
 
 NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 {
-    return [app1[NAME_KEY] caseInsensitiveCompare:app2[NAME_KEY]];
+    return [app1.name caseInsensitiveCompare:app2.name];
 }
 
 
@@ -88,7 +85,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
         for (id app in appProxies) {
             AppInfo *appProxy = [[AppInfo alloc] initWithProxy:app];
             // TODO: what if category is not "User" or "System"?
-            NSString *category = appProxy[TYPE_KEY];
+            NSString *category = appProxy.type;
             NSMutableArray *categoryList = tempDictionary[category];
             [allList addObject:appProxy];
             [categoryList addObject:appProxy];
@@ -212,8 +209,8 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     
     AppInfo *app = [self currentList][indexPath.row];
 
-    cell.textLabel.text = app[NAME_KEY];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[TYPE_KEY], app[VERSION_KEY]];
+    cell.textLabel.text = app.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app.type, app.version];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
