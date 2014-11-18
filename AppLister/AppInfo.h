@@ -15,6 +15,7 @@
 
 @property (nonatomic, readonly) NSString *filterdata; // so we can build predicates for filtering
 
+
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;
 - (NSInteger)propertyCount;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;

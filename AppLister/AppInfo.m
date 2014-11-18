@@ -15,6 +15,9 @@
 
 
 static NSArray *propertyNames;
+static NSString *const NAME_KEY = @"localizedName";
+static NSString *const APPID_KEY = @"applicationIdentifier";
+static NSString *const TYPE_KEY = @"applicationType";
 
 
 @implementation AppInfo
@@ -42,10 +45,9 @@ static NSArray *propertyNames;
 
 - (NSString *)filterdata
 {
-    NSString *_filterData = [NSString stringWithFormat:@"%@ %@ %@",
-            [self objectForKeyedSubscript:@"localizedName"],
-            [self objectForKeyedSubscript:@"applicationIdentifier"],
-            [NSString stringWithFormat:@"TYPE=%@", [self objectForKeyedSubscript:@"applicationType"]]];
+    NSString *_filterData = [NSString stringWithFormat:@"%@ %@",
+                             [self objectForKeyedSubscript:NAME_KEY],
+                             [self objectForKeyedSubscript:APPID_KEY]];
     return _filterData;
 }
 

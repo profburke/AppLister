@@ -11,7 +11,8 @@
 
 
 @interface AppListDataSource ()
-@property (nonatomic, strong) NSArray *apps;
+@property (nonatomic, strong) NSArray *inScopeApps;
+@property (nonatomic, strong) NSDictionary *appsByCategory;
 @property (nonatomic, strong) NSArray *filteredApps;
 @property (nonatomic) BOOL searchActive;
 @property (nonatomic, strong) NSString *searchText;
@@ -20,29 +21,41 @@
 
 
 
+
+static NSString *const CELL_IDENTIFIER = @"AppCell";
+static NSString *const ALLAPPS_KEY = @"allapps";
+static NSString *const SYSTEMAPPS_KEY = @"System";
+static NSString *const USERAPPS_KEY = @"User";
+static NSString *const NAME_KEY = @"localizedName"; // TODO: avoid duplication from AppInfo
+static NSString *const TYPE_KEY = @"applicationType"; // AS ABOVE
+static NSString *const VERSION_KEY = @"shortVersionString"; // AS ABOVE
+
+
+
+
 NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
 {
-    return [app1[@"localizedName"] caseInsensitiveCompare:app2[@"localizedName"]];
+    return [app1[NAME_KEY] caseInsensitiveCompare:app2[NAME_KEY]];
 }
 
 
 
 
-
-NSString *searchScopeEnumToText(enum SearchScope selectedScope)
+NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
 {
     switch (selectedScope) {
         case SearchScopeSystem:
-            return @"TYPE=System";
+            return SYSTEMAPPS_KEY;
             break;
+            
         case SearchScopeUser:
-            return @"TYPE=User";
+            return USERAPPS_KEY;
             break;
+            
         default:
-            return @" ";
+            return ALLAPPS_KEY;
             break;
     }
-
 }
 
 
@@ -65,13 +78,33 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
         
         #pragma clang diagnostic pop
 
-        NSMutableArray *tempList = [NSMutableArray array];
+        NSMutableDictionary *tempDictionary = [NSMutableDictionary dictionary];
+        tempDictionary[ALLAPPS_KEY] = [NSMutableArray array];
+        tempDictionary[SYSTEMAPPS_KEY] = [NSMutableArray array];
+        tempDictionary[USERAPPS_KEY] = [NSMutableArray array];
+        
+        
+        NSMutableArray *allList = tempDictionary[ALLAPPS_KEY];
         for (id app in appProxies) {
-            [tempList addObject:[[AppInfo alloc] initWithProxy:app]];
+            AppInfo *appProxy = [[AppInfo alloc] initWithProxy:app];
+            // TODO: what if category is not "User" or "System"?
+            NSString *category = appProxy[TYPE_KEY];
+            NSMutableArray *categoryList = tempDictionary[category];
+            [allList addObject:appProxy];
+            [categoryList addObject:appProxy];
         }
         
-        self.apps = [tempList sortedArrayUsingFunction:nameSort context:NULL];
+        NSArray *allApps_ = [allList sortedArrayUsingFunction:nameSort context:NULL];
+        NSArray *systemApps_ = [tempDictionary[SYSTEMAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL];
+        NSArray *userApps_ = [tempDictionary[USERAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL];
+
+        self.appsByCategory = @{
+                                ALLAPPS_KEY : allApps_,
+                                SYSTEMAPPS_KEY : systemApps_,
+                                USERAPPS_KEY : userApps_
+                                };
         
+        self.inScopeApps = allList;
         self.searchActive = NO;
     }
     return self;
@@ -85,7 +118,7 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 
 - (NSArray *)currentList
 {
-    NSArray *_currentList = self.apps;
+    NSArray *_currentList = self.inScopeApps;
     if (self.searchActive) {
         _currentList = self.filteredApps;
     }
@@ -99,12 +132,8 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 {
     self.searchActive = YES;
     
-    NSString *scopeText = searchScopeEnumToText(self.selectedScope);
-
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(filterdata CONTAINS[cd] %@) AND (filterdata CONTAINS %@)",
-                         self.searchText,
-                         scopeText];
-    self.filteredApps = [self.apps filteredArrayUsingPredicate:pred];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"filterdata CONTAINS[cd] %@", self.searchText];
+    self.filteredApps = [self.inScopeApps filteredArrayUsingPredicate:pred];
     [self.tableView reloadData];
 }
 
@@ -118,6 +147,7 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 {
     NSLog(@"%ld", (long)selectedScope);
     self.selectedScope = selectedScope;
+    self.inScopeApps = [self.appsByCategory objectForKey:searchScopeEnumToKey(self.selectedScope)];
     [self updateFilteredApps];
 }
 
@@ -127,6 +157,7 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
     self.searchActive = NO;
+    self.inScopeApps = [self.appsByCategory objectForKey:ALLAPPS_KEY];
     [self.tableView reloadData];
 }
 
@@ -150,7 +181,7 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 
 - (id)objectAtIndexedSubscript:(NSInteger)idx
 {
-    return [[self currentList] objectAtIndex:idx];
+    return [self currentList][idx];
 }
 
 
@@ -177,15 +208,14 @@ NSString *searchScopeEnumToText(enum SearchScope selectedScope)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const CellIdentifier = @"AppCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    AppInfo *app = [[self currentList] objectAtIndex:[indexPath row]];
-    cell.textLabel.text = app[@"localizedName"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[@"applicationIdentifier"], app[@"shortVersionString"]];
-    
+    AppInfo *app = [self currentList][indexPath.row];
+
+    cell.textLabel.text = app[NAME_KEY];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app[TYPE_KEY], app[VERSION_KEY]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
     return cell;
 }
 
