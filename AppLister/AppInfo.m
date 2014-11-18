@@ -79,6 +79,14 @@ static NSString *const VERSION_KEY = @"shortVersionString";
 
 
 
+- (BOOL)isUserApp
+{
+    return ([self.type isEqualToString:@"User"]);
+}
+
+
+
+
 #pragma mark - Custom Subscripting
 
 

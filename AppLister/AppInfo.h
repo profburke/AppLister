@@ -17,7 +17,7 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) NSString *version;
-
+@property (nonatomic, readonly) BOOL isUserApp;
 
 
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;

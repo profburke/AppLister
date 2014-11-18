@@ -10,6 +10,9 @@
 #import "AppInfo.h"
 
 
+//TODO: accessibility
+
+
 @interface AppListDataSource ()
 @property (nonatomic, strong) NSDictionary *appsByCategory;
 @property (nonatomic, strong) NSArray *inScopeApps;
@@ -222,6 +225,12 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     
     AppInfo *app = [self currentList][indexPath.row];
 
+    if (app.isUserApp) {
+        cell.textLabel.textColor = [UIColor colorWithRed:0.6 green:0 blue:0 alpha:1.0];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    
     cell.textLabel.text = app.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app.type, app.version];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
