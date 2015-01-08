@@ -10,8 +10,8 @@
 #import "AppInfo.h"
 
 
-//TODO: accessibility
 
+//TODO: accessibility
 
 @interface AppListDataSource ()
 @property (nonatomic, strong) NSDictionary *appsByCategory;
@@ -20,8 +20,9 @@
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) enum SearchScope selectedScope;
 @property (nonatomic) BOOL searchActive;
-@end
 
+@property (nonatomic, strong) NSObject *workspace;
+@end
 
 
 
@@ -71,8 +72,8 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     
-    NSObject* workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
-    apps = [workspace performSelector:@selector(allApplications)];
+    self.workspace = [LSApplicationWorkspace_class performSelector:@selector(defaultWorkspace)];
+    apps = [self.workspace performSelector:@selector(allApplications)];
     
 #pragma clang diagnostic pop
     
@@ -238,6 +239,18 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     return cell;
 }
 
+
+
+
+- (void)openApp:(NSString *)bundleID
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+  
+  [self.workspace performSelector:@selector(openApplicationWithBundleID:) withObject:bundleID];
+
+#pragma clang diagnostic pop
+}
 
 
 @end

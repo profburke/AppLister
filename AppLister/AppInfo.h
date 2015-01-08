@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "LSApplicationProxy.h"
 
+
+
 @interface AppInfo : NSObject
 
 @property (nonatomic, readonly) NSString *filterdata; // so we can build predicates for filtering

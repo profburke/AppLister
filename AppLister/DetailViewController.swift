@@ -8,39 +8,50 @@
 
 import UIKit
 
+
+
 class DetailViewController: UIViewController
 {
-    @IBOutlet weak var tableview: UITableView!
-    var appinfoDataSource: AppInfoDataSource?
-
-    
-    var detailItem: AppInfo? {
-        didSet {
-            self.appinfoDataSource = AppInfoDataSource(appProxy: detailItem!)
-            self.configureView()
-        }
+  @IBOutlet weak var tableview: UITableView!
+  var appinfoDataSource: AppInfoDataSource?
+  var appListDataSource: AppListDataSource?
+  
+  
+  var detailItem: AppInfo? {
+    didSet {
+      self.appinfoDataSource = AppInfoDataSource(appProxy: detailItem!)
+      self.configureView()
     }
-
-    
-    
-    
-    func configureView()
-    {
-        if let dataSource: AppInfoDataSource = self.appinfoDataSource {
-            self.tableview?.dataSource = dataSource
-        }
+  }
+  
+  
+  
+  
+  func configureView()
+  {
+    if let dataSource: AppInfoDataSource = self.appinfoDataSource {
+      self.tableview?.dataSource = dataSource
     }
-
-    
-    
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        self.configureView()
+  }
+  
+  
+  
+  
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+    self.configureView()
+  }
+  
+  
+  
+  @IBAction func openApp()
+  {
+    if let appListDataSource = appListDataSource {
+      appListDataSource.openApp(appinfoDataSource?.getBundleID())
     }
-
-    
-    
+  }
+  
+  
 }
 

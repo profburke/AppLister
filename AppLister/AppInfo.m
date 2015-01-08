@@ -9,6 +9,7 @@
 #import "AppInfo.h"
 
 
+
 @interface AppInfo ()
 @property (nonatomic, strong, readwrite) LSApplicationProxy *appProxy;
 @end

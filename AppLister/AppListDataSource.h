@@ -23,4 +23,8 @@ NS_ENUM(NSInteger, SearchScope) {
 @property (nonatomic, weak) UITableView *tableView;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;
 
+
+- (void)openApp:(NSString *)bundleID;
+
+
 @end
