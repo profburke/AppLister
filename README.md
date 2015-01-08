@@ -6,13 +6,18 @@ looking at this info interesting/educational; I hope you do as well.
 
 ## Future Development
 
-There will most likely be little or no future development of this project, although I will
-attempt to address bug reports, pull requests, etc. promptly. I am particularly interested
+<del>There will most likely be little or no future development of this project, although</del>
+From time to time, when I need a simple project to use as a test-bed for new ideas, I may add functionality
+to this project. Also if/when an idea occurs for an interesting extension, I might add it.
+For example, it just occured (Jan '15) to me that `LSWorkspace` must (*might*) have a way to launch apps. And voilà,
+**AppLister** now has that functionality.
+
+In addition, I will attempt to address bug reports, pull requests, etc. promptly. I am particularly interested
 in hearing suggestions on how I can improve my Swift coding.
 
 The little bit of Objective-C that exists in this project is there because I couldn't
 figure out a Swift equivalent---particularly a work-around for `performSelector`. Note
-the existance of the `AppInfo` class is almost entirely dut to the repeated segfaults when
+the existance of the `AppInfo` class is almost entirely due to repeated segfaults when
 trying to use `LSApplicationProxy` more directly.
 
 ## License
