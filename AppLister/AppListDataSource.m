@@ -9,6 +9,8 @@
 #import "AppListDataSource.h"
 #import "AppInfo.h"
 
+// See https://github.com/nst/iOS-Runtime-Headers
+// In particular https://github.com/nst/iOS-Runtime-Headers/blob/master/Frameworks/MobileCoreServices.framework/LSBundleProxy.h
 
 
 //TODO: accessibility
