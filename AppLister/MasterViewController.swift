@@ -38,7 +38,8 @@ class MasterViewController: UITableViewController
     
     if let split = self.splitViewController {
       let controllers = split.viewControllers
-      self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+      let navigationController = controllers[controllers.count-1] as! UINavigationController
+      self.detailViewController = navigationController.topViewController as? DetailViewController
     }
   }
   
@@ -95,12 +96,12 @@ class MasterViewController: UITableViewController
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
   {
     if segue.identifier == "showDetail" {
-      if let indexPath = self.tableView.indexPathForSelectedRow() {
-        let object = self.appListDataSource[indexPath.row] as AppInfo
-        let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+      if let indexPath = self.tableView.indexPathForSelectedRow {
+        let object = self.appListDataSource[indexPath.row] as! AppInfo
+        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
         controller.detailItem = object
         controller.appListDataSource = appListDataSource
-        controller.title = object["localizedName"] as String?
+        controller.title = object["localizedName"] as! String?
         controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
         controller.navigationItem.leftItemsSupplementBackButton = true
       }

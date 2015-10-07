@@ -56,6 +56,7 @@ static NSString *const VERSION_KEY = @"shortVersionString";
 
 
 
+// TODO: implement a fall-back in case localized name is nil.
 - (NSString *)name
 {
     return self[NAME_KEY];

@@ -27,7 +27,7 @@ class AppInfoDataSource: NSObject, UITableViewDataSource
   
   func getBundleID() -> String
   {
-    return appProxy["bundleIdentifier"] as String
+    return appProxy["bundleIdentifier"] as! String
   }
   
   
@@ -51,10 +51,10 @@ class AppInfoDataSource: NSObject, UITableViewDataSource
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let cell = tableView.dequeueReusableCellWithIdentifier(self.CellIdentifier, forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(self.CellIdentifier, forIndexPath: indexPath) 
     
-    let propName = self.appProxy[indexPath.row] as String
-    let prop = self.appProxy[propName] as String
+    let propName = self.appProxy[indexPath.row] as! String
+    let prop = self.appProxy[propName] as! String
     
     cell.textLabel?.text = prop
     cell.detailTextLabel?.text = propName
