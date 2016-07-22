@@ -19,7 +19,7 @@ class MasterViewController: UITableViewController
   override func awakeFromNib()
   {
     super.awakeFromNib()
-    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+    if UIDevice.current().userInterfaceIdiom == .pad {
       self.clearsSelectionOnViewWillAppear = false
       self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
     }
@@ -63,7 +63,7 @@ class MasterViewController: UITableViewController
       self.appListDataSource.tableView = self.tableView
       controller.hidesNavigationBarDuringPresentation = false
       controller.dimsBackgroundDuringPresentation = false
-      controller.searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)
+      controller.searchBar.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 44)
       self.tableView.tableHeaderView = controller.searchBar
       self.definesPresentationContext = true
       
@@ -77,13 +77,13 @@ class MasterViewController: UITableViewController
   // MARK: - UITableViewDelegate
   
   
-  override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-    let isEven = (indexPath.row%2 == 0)
+  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    let isEven = ((indexPath as NSIndexPath).row%2 == 0)
     
     if isEven {
       cell.backgroundColor = self.evenColor
     } else {
-      cell.backgroundColor = UIColor.whiteColor()
+      cell.backgroundColor = UIColor.white()
     }
   }
   
@@ -93,11 +93,11 @@ class MasterViewController: UITableViewController
   // MARK: - Segues
   
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+  override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?)
   {
     if segue.identifier == "showDetail" {
       if let indexPath = self.tableView.indexPathForSelectedRow {
-        let object = self.appListDataSource[indexPath.row] as! AppInfo
+        let object = self.appListDataSource[(indexPath as NSIndexPath).row] as! AppInfo
         let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
         controller.detailItem = object
         controller.appListDataSource = appListDataSource

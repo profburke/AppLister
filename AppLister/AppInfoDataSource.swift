@@ -33,7 +33,7 @@ class AppInfoDataSource: NSObject, UITableViewDataSource
   
   
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int
+  func numberOfSections(in tableView: UITableView) -> Int
   {
     return 1
   }
@@ -41,7 +41,7 @@ class AppInfoDataSource: NSObject, UITableViewDataSource
   
   
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     return self.appProxy.propertyCount()
   }
@@ -49,11 +49,11 @@ class AppInfoDataSource: NSObject, UITableViewDataSource
   
   
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
   {
-    let cell = tableView.dequeueReusableCellWithIdentifier(self.CellIdentifier, forIndexPath: indexPath) 
+    let cell = tableView.dequeueReusableCell(withIdentifier: self.CellIdentifier, for: indexPath) 
     
-    let propName = self.appProxy[indexPath.row] as! String
+    let propName = self.appProxy[(indexPath as NSIndexPath).row] as! String
     let prop = self.appProxy[propName] as! String
     
     cell.textLabel?.text = prop
