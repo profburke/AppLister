@@ -123,7 +123,7 @@ static NSString *const VERSION_KEY = @"shortVersionString";
 {
     propertyNames = @[@"applicationIdentifier", @"applicationDSID",
                       @"applicationType", @"bundleVersion", @"itemName", @"minimumSystemVersion",
-                      @"roleIdentifier", @"sdkVersion", @"shortVersionString", @"storeCohortMetadata",
+                      @"sdkVersion", @"shortVersionString", @"storeCohortMetadata",
                       @"teamID", @"vendorName", @"dynamicDiskUsage", @"itemID", @"staticDiskUsage", @"storeFront",
                       @"appStoreReceiptURL", @"bundleContainerURL", @"bundleExecutable", @"bundleIdentifier",
                       @"bundleType", @"bundleURL", @"bundleVersion", @"containerURL", @"dataContainerURL",

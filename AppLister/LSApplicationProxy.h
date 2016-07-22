@@ -79,7 +79,6 @@
 @property(readonly) NSArray * plugInKitPlugins;
 @property(readonly) BOOL profileValidated;
 @property(readonly) NSArray * requiredDeviceCapabilities;
-@property(readonly) NSString * roleIdentifier;
 @property(readonly) NSString * sdkVersion;
 @property(readonly) NSString * shortVersionString;
 @property(readonly) NSNumber * staticDiskUsage;
@@ -92,7 +91,6 @@
 
 + (id)applicationProxyForBundleURL:(id)arg1;
 + (id)applicationProxyForIdentifier:(id)arg1 placeholder:(BOOL)arg2;
-+ (id)applicationProxyForIdentifier:(id)arg1 roleIdentifier:(id)arg2;
 + (id)applicationProxyForIdentifier:(id)arg1;
 + (id)applicationProxyForItemID:(id)arg1;
 + (id)applicationProxyWithBundleUnitID:(unsigned long)arg1;
@@ -153,7 +151,6 @@
 - (BOOL)profileValidated;
 - (id)requiredDeviceCapabilities;
 - (id)resourcesDirectoryURL;
-- (id)roleIdentifier;
 - (id)sdkVersion;
 - (void)setPrivateDocumentIconAllowOverride:(BOOL)arg1;
 - (void)setPrivateDocumentIconNames:(id)arg1;
