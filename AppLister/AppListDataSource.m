@@ -12,7 +12,6 @@
 // See https://github.com/nst/iOS-Runtime-Headers
 // In particular https://github.com/nst/iOS-Runtime-Headers/blob/master/Frameworks/MobileCoreServices.framework/LSBundleProxy.h
 
-
 //TODO: accessibility
 
 @interface AppListDataSource ()
@@ -26,25 +25,15 @@
 @property (nonatomic, strong) NSObject *workspace;
 @end
 
-
-
 static NSString *const ALLAPPS_KEY = @"allapps";
 static NSString *const SYSTEMAPPS_KEY = @"System";
 static NSString *const USERAPPS_KEY = @"User";
 
-
-
-
-NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context)
-{
+NSInteger nameSort(AppInfo *app1, AppInfo *app2, void *context) {
     return [app1.name caseInsensitiveCompare:app2.name];
 }
 
-
-
-
-NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
-{
+NSString *searchScopeEnumToKey(enum SearchScope selectedScope) {
     switch (selectedScope) {
         case SearchScopeSystem:
             return SYSTEMAPPS_KEY;
@@ -60,14 +49,9 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     }
 }
 
-
-
-
 @implementation AppListDataSource
 
-
-- (NSArray *)fetchApps
-{
+- (NSArray *)fetchApps {
     NSMutableArray *apps;
     Class LSApplicationWorkspace_class = NSClassFromString(@"LSApplicationWorkspace");
     
@@ -82,11 +66,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     return apps;
 }
 
-
-
-
-- (void)buildAppDictionary:(NSArray *)apps
-{
+- (void)buildAppDictionary:(NSArray *)apps {
     NSMutableDictionary *tempDictionary = [NSMutableDictionary dictionary];
     tempDictionary[ALLAPPS_KEY] = [NSMutableArray array];
     tempDictionary[SYSTEMAPPS_KEY] = [NSMutableArray array];
@@ -105,14 +85,9 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
                             SYSTEMAPPS_KEY : [tempDictionary[SYSTEMAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL],
                             USERAPPS_KEY : [tempDictionary[USERAPPS_KEY] sortedArrayUsingFunction:nameSort context:NULL]
                             };
-    
 }
 
-
-
-
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         NSArray *apps = [self fetchApps];
@@ -125,14 +100,9 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     return self;
 }
 
-
-
-
 #pragma mark - Search Helpers
 
-
-- (NSArray *)currentList
-{
+- (NSArray *)currentList {
     NSArray *_currentList = self.inScopeApps;
     if (self.searchActive) {
         _currentList = self.filteredApps;
@@ -140,11 +110,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     return _currentList;
 }
 
-
-
-
-- (void)updateFilteredApps
-{
+- (void)updateFilteredApps {
     self.searchActive = YES;
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"filterdata CONTAINS[cd] %@", self.searchText];
@@ -152,77 +118,45 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     [self.tableView reloadData];
 }
 
-
-
-
 #pragma mark - UISearchControllerDelegate
 
-
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
     NSLog(@"%ld", (long)selectedScope);
     self.selectedScope = selectedScope;
     self.inScopeApps = [self.appsByCategory objectForKey:searchScopeEnumToKey(self.selectedScope)];
     [self updateFilteredApps];
 }
 
-
-
-
-- (void)didDismissSearchController:(UISearchController *)searchController
-{
+- (void)didDismissSearchController:(UISearchController *)searchController {
     self.searchActive = NO;
     self.inScopeApps = [self.appsByCategory objectForKey:ALLAPPS_KEY];
     [self.tableView reloadData];
 }
 
-
-
-
 #pragma mark - UISearchResultsUpdating
 
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     self.searchText = searchController.searchBar.text;
     [self updateFilteredApps];
 }
 
-
-
-
 #pragma mark - Custom Subscripting
 
-
-- (id)objectAtIndexedSubscript:(NSInteger)idx
-{
+- (id)objectAtIndexedSubscript:(NSInteger)idx {
     return [self currentList][idx];
 }
 
-
-
-
 #pragma mark - UITableViewDataSource
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self currentList].count;
 }
 
-
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *const CELL_IDENTIFIER = @"AppCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
@@ -241,11 +175,7 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
     return cell;
 }
 
-
-
-
-- (void)openApp:(NSString *)bundleID
-{
+- (void)openApp:(NSString *)bundleID {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
   
@@ -253,6 +183,5 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope)
 
 #pragma clang diagnostic pop
 }
-
 
 @end

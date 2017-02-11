@@ -4,14 +4,13 @@
 //
 //  Created by Matthew Burke on 11/12/14.
 //  Copyright (c) 2014-2017 BlueDino Software. 
-// Availble under the MIT License. See the file, LICENSE, for details.
+//  Availble under the MIT License. See the file, LICENSE, for details.
 //
 
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate
-{
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -24,8 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
   
   // MARK: - Split view
   
-  func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool
-  {
+  func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
     if let secondaryAsNavController = secondaryViewController as? UINavigationController {
       if let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController {
         if topAsDetailController.detailItem == nil {

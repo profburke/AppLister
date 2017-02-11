@@ -11,8 +11,6 @@
 #import <Foundation/Foundation.h>
 #import "LSApplicationProxy.h"
 
-
-
 @interface AppInfo : NSObject
 
 @property (nonatomic, readonly) NSString *filterdata; // so we can build predicates for filtering
@@ -21,11 +19,9 @@
 @property (nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) BOOL isUserApp;
 
-
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;
 - (NSInteger)propertyCount;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;
 - (id)objectForKeyedSubscript:(NSString *)key;
-
 
 @end

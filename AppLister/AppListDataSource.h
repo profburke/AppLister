@@ -8,23 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-
-
 NS_ENUM(NSInteger, SearchScope) {
     SearchScopeAll = 0,
     SearchScopeSystem,
     SearchScopeUser
 };
 
-
-
 @interface AppListDataSource : NSObject <UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;
-
-
 - (void)openApp:(NSString *)bundleID;
-
 
 @end

@@ -8,16 +8,13 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController
-{
+class MasterViewController: UITableViewController {
   var detailViewController: DetailViewController? = nil
   var appListDataSource: AppListDataSource = AppListDataSource()
   let evenColor = UIColor(white: 0.9, alpha: 1.0)
   var searchController = UISearchController()
   
-  
-  override func awakeFromNib()
-  {
+  override func awakeFromNib() {
     super.awakeFromNib()
     if UIDevice.current.userInterfaceIdiom == .pad {
       self.clearsSelectionOnViewWillAppear = false
@@ -25,11 +22,7 @@ class MasterViewController: UITableViewController
     }
   }
   
-  
-  
-  
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
     
     self.tableView.dataSource = self.appListDataSource
@@ -43,14 +36,9 @@ class MasterViewController: UITableViewController
     }
   }
   
-  
-  
-  
   // MARK: - SearchController
   
-  
-  func configureSearchController()
-  {
+  func configureSearchController() {
     self.searchController = ({
       let controller = UISearchController(searchResultsController: nil)
       
@@ -71,11 +59,7 @@ class MasterViewController: UITableViewController
     })()
   }
   
-  
-  
-  
   // MARK: - UITableViewDelegate
-  
   
   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     let isEven = ((indexPath as NSIndexPath).row%2 == 0)
@@ -87,14 +71,9 @@ class MasterViewController: UITableViewController
     }
   }
   
-  
-  
-  
   // MARK: - Segues
   
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
       if let indexPath = self.tableView.indexPathForSelectedRow {
         let object = self.appListDataSource[(indexPath as NSIndexPath).row] as! AppInfo
@@ -107,7 +86,6 @@ class MasterViewController: UITableViewController
       }
     }
   }
-  
   
 }
 

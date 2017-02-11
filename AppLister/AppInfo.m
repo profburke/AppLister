@@ -8,12 +8,9 @@
 
 #import "AppInfo.h"
 
-
-
 @interface AppInfo ()
 @property (nonatomic, strong, readwrite) LSApplicationProxy *appProxy;
 @end
-
 
 static NSArray *propertyNames;
 static NSString *const NAME_KEY = @"localizedName";
@@ -21,12 +18,9 @@ static NSString *const APPID_KEY = @"applicationIdentifier";
 static NSString *const TYPE_KEY = @"applicationType";
 static NSString *const VERSION_KEY = @"shortVersionString";
 
-
 @implementation AppInfo
 
-
-- (instancetype)initWithProxy:(LSApplicationProxy *)appProxy
-{
+- (instancetype)initWithProxy:(LSApplicationProxy *)appProxy {
     self = [super init];
     if (self) {
         self.appProxy = appProxy;
@@ -34,74 +28,41 @@ static NSString *const VERSION_KEY = @"shortVersionString";
     return self;
 }
 
-
-
-
-- (NSInteger)propertyCount
-{
+- (NSInteger)propertyCount {
     return propertyNames.count;
 }
 
-
-
-
-- (NSString *)filterdata
-{
+- (NSString *)filterdata {
     NSString *_filterData = [NSString stringWithFormat:@"%@ %@",
                              [self objectForKeyedSubscript:NAME_KEY],
                              [self objectForKeyedSubscript:APPID_KEY]];
     return _filterData;
 }
 
-
-
-
 // TODO: implement a fall-back in case localized name is nil.
-- (NSString *)name
-{
+- (NSString *)name {
     return self[NAME_KEY];
 }
 
-
-
-
-- (NSString *)type
-{
+- (NSString *)type {
     return self[TYPE_KEY];
 }
 
-
-
-
-- (NSString *)version
-{
+- (NSString *)version {
     return self[VERSION_KEY];
 }
 
-
-
-
-- (BOOL)isUserApp
-{
+- (BOOL)isUserApp {
     return ([self.type isEqualToString:@"User"]);
 }
 
-
-
-
 #pragma mark - Custom Subscripting
 
-
-- (id)objectAtIndexedSubscript:(NSInteger)idx
-{
+- (id)objectAtIndexedSubscript:(NSInteger)idx {
     return propertyNames[idx];
 }
 
-
-
-
-- (id)objectForKeyedSubscript:(NSString *)key
-{
+- (id)objectForKeyedSubscript:(NSString *)key {
     NSString *description = [[self.appProxy valueForKey:key] description];
     if (!description) {
         description = @"(null)";
@@ -109,18 +70,13 @@ static NSString *const VERSION_KEY = @"shortVersionString";
     return description;
 }
 
-
-
-
 #pragma mark - Class Methods
-
 
 // TODO: build this list dynamically using class_copyPropertyList
 // and walking up the inheritence tree.
 // TODO: expand to include additional types of properties (below
 // is just NSString and NSNumber).
-+ (void)initialize
-{
++ (void)initialize {
     propertyNames = @[@"applicationIdentifier", @"applicationDSID",
                       @"applicationType", @"bundleVersion", @"itemName", @"minimumSystemVersion",
                       @"sdkVersion", @"shortVersionString", @"storeCohortMetadata",
@@ -130,8 +86,6 @@ static NSString *const VERSION_KEY = @"shortVersionString";
                       @"localizedShortName", @"signerIdentity",
                       @"localizedName"
                       ];
-
 }
-
 
 @end
