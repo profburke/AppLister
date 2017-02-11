@@ -24,12 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
   // MARK: - Split view
   
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-    if let secondaryAsNavController = secondaryViewController as? UINavigationController {
-      if let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController {
-        if topAsDetailController.detailItem == nil {
+    if let secondaryAsNavController = secondaryViewController as? UINavigationController,
+      let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController,
+        topAsDetailController.detailItem == nil {
           return true
-        }
-      }
     }
     return false
   }

@@ -3,7 +3,7 @@
 //  AppLister
 //
 //  Created by Matthew Burke on 11/12/14.
-//  Copyright (c) 2014-2015 BlueDino Software. Availble under the MIT License. See the file, LICENSE, for details.
+//  Copyright (c) 2014-2017 BlueDino Software. Availble under the MIT License. See the file, LICENSE, for details.
 //
 // http://www.andreas-kurtz.de/2014/09/malicious-apps-ios8.html
 //
