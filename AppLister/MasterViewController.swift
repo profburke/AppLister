@@ -19,7 +19,7 @@ class MasterViewController: UITableViewController
   override func awakeFromNib()
   {
     super.awakeFromNib()
-    if UIDevice.current().userInterfaceIdiom == .pad {
+    if UIDevice.current.userInterfaceIdiom == .pad {
       self.clearsSelectionOnViewWillAppear = false
       self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
     }
@@ -83,7 +83,7 @@ class MasterViewController: UITableViewController
     if isEven {
       cell.backgroundColor = self.evenColor
     } else {
-      cell.backgroundColor = UIColor.white()
+      cell.backgroundColor = UIColor.white
     }
   }
   
@@ -93,16 +93,16 @@ class MasterViewController: UITableViewController
   // MARK: - Segues
   
   
-  override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?)
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
   {
     if segue.identifier == "showDetail" {
       if let indexPath = self.tableView.indexPathForSelectedRow {
         let object = self.appListDataSource[(indexPath as NSIndexPath).row] as! AppInfo
-        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+        let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
         controller.detailItem = object
         controller.appListDataSource = appListDataSource
         controller.title = object["localizedName"] as! String?
-        controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+        controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
       }
     }
