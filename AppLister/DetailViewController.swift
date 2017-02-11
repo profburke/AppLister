@@ -15,20 +15,20 @@ class DetailViewController: UIViewController {
   
   var detailItem: AppInfo? {
     didSet {
-      self.appinfoDataSource = AppInfoDataSource(appProxy: detailItem!)
-      self.configureView()
+      appinfoDataSource = AppInfoDataSource(appProxy: detailItem!)
+      configureView()
     }
   }
   
   func configureView() {
-    if let dataSource: AppInfoDataSource = self.appinfoDataSource {
-      self.tableview?.dataSource = dataSource
+    if let dataSource: AppInfoDataSource = appinfoDataSource {
+      tableview?.dataSource = dataSource
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.configureView()
+    configureView()
   }
   
   @IBAction func openApp() {

@@ -26,14 +26,14 @@ class AppInfoDataSource: NSObject, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.appProxy.propertyCount()
+    return appProxy.propertyCount()
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: self.CellIdentifier, for: indexPath) 
+    let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
     
-    let propName = self.appProxy[(indexPath as NSIndexPath).row] as! String
-    let prop = self.appProxy[propName] as! String
+    let propName = appProxy[(indexPath as NSIndexPath).row] as! String
+    let prop = appProxy[propName] as! String
     
     cell.textLabel?.text = prop
     cell.detailTextLabel?.text = propName
