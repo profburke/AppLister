@@ -19,6 +19,8 @@
 @property (nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) BOOL isUserApp;
 
+@property (nonatomic, readonly) UIImage *icon;
+
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy;
 - (NSInteger)propertyCount;
 - (id)objectAtIndexedSubscript:(NSInteger)idx;

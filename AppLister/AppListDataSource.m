@@ -171,7 +171,8 @@ NSString *searchScopeEnumToKey(enum SearchScope selectedScope) {
     cell.textLabel.text = app.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (v%@)", app.type, app.version];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+    cell.imageView.image = app.icon;
+    
     return cell;
 }
 

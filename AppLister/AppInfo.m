@@ -8,6 +8,12 @@
 
 #import "AppInfo.h"
 
+@interface UIImage ()
++ (id)_iconForResourceProxy:(id)arg1 variant:(int)arg2 variantsScale:(float)arg3;
++ (id)_applicationIconImageForBundleIdentifier:(id)arg1 format:(int)arg2 scale:(double)arg3;
+@end
+
+
 @interface AppInfo ()
 @property (nonatomic, strong, readwrite) LSApplicationProxy *appProxy;
 @end
@@ -18,7 +24,9 @@ static NSString *const APPID_KEY = @"applicationIdentifier";
 static NSString *const TYPE_KEY = @"applicationType";
 static NSString *const VERSION_KEY = @"shortVersionString";
 
-@implementation AppInfo
+@implementation AppInfo {
+    UIImage *_icon;
+}
 
 - (instancetype)initWithProxy:(LSApplicationProxy *)appProxy {
     self = [super init];
@@ -50,6 +58,16 @@ static NSString *const VERSION_KEY = @"shortVersionString";
 
 - (NSString *)version {
     return self[VERSION_KEY];
+}
+
+
+- (UIImage *)icon {
+    if (_icon == nil) {
+        _icon = [UIImage _applicationIconImageForBundleIdentifier:self.appProxy.bundleIdentifier
+                                                           format:10
+                                                            scale:2.0];
+    }
+    return _icon;
 }
 
 - (BOOL)isUserApp {
