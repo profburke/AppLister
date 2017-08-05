@@ -1,14 +1,14 @@
 ## README
 
-**NOTE: As of 5 August 2017 this project is dead. It looks like something's changed in iOS 11 that prevents the key (private) API call from working (`allApplications` on `LSApplicationWorkspace`).  The method works fine in the simulator, but on a device running iOS 11, it returns zero results.
+**NOTE: As of 5 August 2017 this project is dead. It looks like something's changed in iOS 11 that prevents the key (private) API call from working (`allApplications` on `LSApplicationWorkspace`).  The method works fine in the simulator, but on a device running iOS 11, it returns zero results.**
 
-I'll leave the project available, in case there's interest in the corpse (besides it's useful for anybody who hasn't upgraded to 11). And I'll hope to have a brainwave at some point.
+**I'll leave the project available, in case there's interest in the corpse (*besides it's useful for anybody who hasn't upgraded to 11*). And I'll hope to have a brainwave at some point.**
 
-If you have any thoughts on a fix, please [open a PR](https://github.com/profburke/AppLister/pulls), or leave a comment on [the relevant issue](https://github.com/profburke/AppLister/issues/4).
+**If you have any thoughts on a fix, please [open a PR](https://github.com/profburke/AppLister/pulls), or leave a comment on [the relevant issue](https://github.com/profburke/AppLister/issues/4).**
 
-Regards,
+**Regards,**
 
-T. Management**
+**T. Management**
 
 This iOS app displays information on all the apps installed on the device.It makes use of
 private classes and, as such, will be rejected if submitted to Apple's App Store. I find
